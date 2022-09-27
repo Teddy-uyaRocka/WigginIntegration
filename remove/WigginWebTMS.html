@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiggin WebTMS Integration</title>
+    
+    <!-- import the methods for XML to JSON conversion functionality -->
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script type='text/javascript' src="xml2json.js"></script>
+
+    <!-- import the methods for XLS/iSheet functionality -->
+    <script src="iSheet/excellentexport.js"></script>
+
+    <!-- Formats for XLS/iSheet functionality -->
+    <script>
+        function Create_iSheet(format) {
+            return ExcellentExport.convert({
+                anchor: 'anchorNewApi-' + format,
+                filename: 'iSheet_Data',
+                format: format
+            }, [{
+                name: 'iSheet_HighQ',
+                from: {
+                    table: 'APIresult'
+                }
+            }]);
+        }
+
+        function exportSome() {
+            return ExcellentExport.convert({
+                anchor: "anchorNewApi-xlsx-some",
+                filename: "somedata",
+                format: "xlsx"
+            }, [{
+                name: 'Sheet number 1',
+                from: {
+                    table: 'APIresult'
+                },
+                filterRowFn: function(row) {
+                    if (row[1] == 200) {
+                        return false;
+                    }
+                    return true;
+                },
+                removeColumns: [1],
+
+            }])
+        }
+    </script>
+
+    <!-- conversion of xml to json functionality -->
+    <script type='text/javascript'>
+
+            var x2js = new X2JS();
+            function convertXml2JSon() {
+                $("#jsonArea").val(JSON.stringify(x2js.xml_str2json($("#xmlArea").val())));
+            };
+        
+            function convertJSon2XML() {
+                $("#xmlArea").val(x2js.json2xml_str($.parseJSON($("#jsonArea").val())));
+            };
+
+        </script>
+
+<style>
+    table {
+        border-collapse:separate;
+        border-spacing:0px;
+    }
+    td, th {
+    border: 1px solid black;
+    padding: 10px;
+    }
+    td{
+    background: white;
+    color: black;
+    font-size: smaller;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .primary{
+    background-color: brown;
+    position: sticky;
+    }
+    th {
+    background: #abd0f6;
+    color: black;
+    border-radius: 0;
+    top: 0;
+    padding: 10px;
+    font-size: smaller;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    tbody > tr:hover {
+    background-color: white;
+    }
+</style>
+
+<style type="text/css">
+    body
+    {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+    table
+    {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+    table th
+    {
+        background-color: #F7F7F7;
+        color: #333;
+        font-weight: bold;
+    }
+    table th, table td
+    {
+        padding: 5px;
+        border-color: #ccc;
+    }
+</style>
+
+</head>
+<body>
+    
+    <p id="sampleResult">Wiggin WEBTMS Integration</p>
+
+    <form name="Demo" action="" method="post">
+
+        <div>
+            <input type="button" value="Get Soap Response" onclick="GetSoapResponse();" />
+            <!-- 
+            <a download="iSheet_Data.xlsx" href="#" id="anchorNewApi-xlsx" onclick="Create_iSheet('xlsx');">Create iSheet Input</a>
+            -->
+            <a download="iSheet_Data.xlsx" href="#" id="anchorNewApi-xlsx" onclick=""><input type="button" value="Create iSheet Input" onclick="Create_iSheet('xlsx');" /></a>
+        </div>
+        <hr />
+    </form>
+
+    <div id='content'>
+        <Table id = 'APIresult' cellpadding='10px' style='text-align: left;'>
+            <thead>
+                <tr>
+                    <th>Word mark</th>
+                    <th>Logo, if applicable</th>
+                    <th>Owner name/details</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Application No.</th>
+                    <th>Application Date</th>
+                    <th>Registration No.</th>
+                    <th>Registration Date</th>
+                    <th>Next deadline / renewal date</th>
+                    <th>Agent name</th>
+                    <th>Client ID</th>
+                    <th>Client Name</th>
+                    <th style="width: 500px;">Classes</th>
+                    <th>Business Group</th>
+                    <th>Logo Image, if applicable</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </Table>
+    </div>
+
+    <script type="text/javascript">
+
+    function GetSoapResponse() {
+
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx', true);
+
+            // build SOAP request
+            let sr =
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<soap12:Envelope ' + 
+                    'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                    'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+                    'xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
+                    '<soap12:Body>' +
+
+                        '<RecordExport xmlns="http://tempuri.org/">' +
+
+                            '<username>Syke.Integration</username>' +
+                            '<password>Syke2022!W3bTmS</password>' +
+                            '<modulecode>2</modulecode>' +
+                            //'<clientid>5118145</clientid>' +
+                            '<tm_regnumber>IR 938019</tm_regnumber>' + 
+                            //'<pics>0</pics>' +
+
+                        '</RecordExport>' +
+
+                    '</soap12:Body>' +
+                '</soap12:Envelope>';                
+
+            xmlhttp.onreadystatechange = function () {
+
+                if (xmlhttp.readyState == 4) {
+
+                    if (xmlhttp.status == 200) {
+
+                        // hide the element; unhide to debug
+                        document.getElementById("sampleResult").style.display = "none";
+
+                        document.getElementById("sampleResult").innerHTML = xmlhttp.responseText;
+
+                        // load the results from the request
+                        LoadSoapResponse(document.getElementById('sampleResult').textContent);
+
+                    }
+                }
+            };
+
+            // Send the POST request 
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+            // send request
+            // ...
+
+    };
+
+    function LoadSoapResponse(theResponse) {
+
+            let xmlContent = '';
+
+            let tableresult = document.getElementById('APIresult')
+
+            xml=theResponse;
+
+                    xmlContent = xml;
+                    $("#jsonArea").val(JSON.stringify(x2js.xml_str2json( xmlContent  )));
+                    obj = JSON.parse($("#jsonArea").val());
+
+    };
+
+    </script>
+    
+    <div>
+        <h4>JSON:</h4>
+        <textarea id="jsonArea" cols="55" rows="15"></textarea>
+    </div>   
+
+</body>
+</html>

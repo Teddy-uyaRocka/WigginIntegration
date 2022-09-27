@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Use of JQuery to Add Edit Delete Table Row </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+
+    <div class="container">
+        <h1>TradeMark Listing</h1>
+        <br />
+        <div id="employeedivcontainer">
+
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="WebTMS.js"></script>
+
+
+<script type="text/javascript">
+//    var employess = [
+//{"trademarkid":"87501234","recordownerid":"843","ownershipid":"2528598","trademarkprofilerecordownerid":"843","trademark":"3M IN DESIGN (1978 - RED)","tmlogo":"WIGGIN_13_K16.jpg","addressofrecord":"","country":"United Kingdom","applicationno":"UK00912325676","applicationdate":"2013-11-19T00:00:00","registrationno":"UK00912325676","registrationdate":"2020-01-10T00:00:00","trademarkstatus":"Registered","filereference":"103481.000002","nextrenewaldue":"2023-11-19T00:00:00","typeofregistration":"Former EUTM","supervisor":"Michael Browne","supervisor2":"Joanne Gibbs","supervisor3":"Olivia Aldous","supervisor4":"Akber Ahmed","supervisor5":"Lena Stelczyk","active":"1","hksection18":"0","recordcreated":"2021-06-02T11:18:00.517","recordcreatedby":"Dataconversion_May2021","recordupdated":"2022-05-31T16:20:05.113","recordupdatedby":"Lorraine (CB)","trademarkprofileid":"46439618","ownerid":"5119617","owner":"3M Company","owneraddress1":"3M Center","owneraddress2":"2501 Hudson Road","ownercity":"St Paul","ownerstate":"Minnesota","ownerpostalcode":"55144-1000","ownercountry":"United States of America","ownerfilereference":"Owner","clientid":"5118145","client":"3M Innovative Properties Company","clientaddress1":"3M Center, Accounting Department","clientaddress2":"Bldg 220-9-E-01, 2501 Hudson Road","clientcity":"St. Paul","clientstate":"Minnesota","clientpostalcode":"55144-1000","clientcountry":"United States of America","clientfilereference":"CLIENT","agentid":"5115402","agent":"Wiggin LLP","agentaddress1":"Jessop House","agentaddress2":"Jessop Avenue","agentcity":"Cheltenham","agentpostalcode":"GL50 3WG","agentcountry":"United Kingdom","agentfax":"+44 (0) 1242 224223","agentwebpage":"www.wiggin.co.uk","agentcompanyemail":"trademarks@wiggin.co.uk","agentfilereference":"Agent / Client","clientownersame":"0","goods":[{"trademarkid":"87501234","intclass":"12","language":"English","goods":"Fittings for bicycles; parts and fittings for land vehicles, namely balance weights for vehicle wheels; fitted covers for vehicles; semi-fitted covers for vehicles; handles, handle grips and grip tapes for bicycle handlebars."},{"trademarkid":"87501234","intclass":"14","language":"English","goods":"Precious metals and their alloys and goods in precious metals or coated therewith, not included in other classes; jewelry, precious stones; horological and chronometric instruments; clocks and watches; costume jewelry."},{"trademarkid":"87501234","intclass":"18","language":"English","goods":"Leather and imitations of leather, and goods made of these materials and not included in other classes; animal skins, hides; trunks and traveling bags; umbrellas, parasols and walking sticks; whips, harness and saddlery; briefcases, wallets and bags; handbags, rucksacks, purses; school bags; holdalls; clothing for animals; harnesses for animals; covers and collars for animals; kneepads for horses and horse rundown patches, all being horse protectors.."},{"trademarkid":"87501234","intclass":"25","language":"English","goods":"Clothing, footwear, headgear; ski-wear and outdoor clothing; T-shirts, caps, track suits, dressing gowns, socks, gloves; Swimsuits; waterproof clothing; scarves; belts for clothing, clothing manufactured from stain repellent textile materials."},{"trademarkid":"87501234","intclass":"28","language":"English","goods":"Games and playthings; gymnastic and sporting articles not included in other classes; decorations for Christmas trees; fishing tackle, equipment and accessories; including fishing lines, backing and leaders, line indicators, line casts, plumbs, reels, supports, tools, tackle and fly boxes, floats, tackle float swivels, weights, fishing bags, tippets, fishing poles and rods, fly tying tools and materials, creels, cases and wallets, rod holders, clamps, line cutters, rod and reel cases, reel pouches; fishing flies, fly cleaning pads, fly line dressing, fly floatant and dubbing sticks; parts and fittings for all the aforesaid goods; synthetic fishing bait and ground baits; handles, handle grips and grip tapes for sporting equipment, namely, rackets, golf clubs and ski poles; gloves for use with sporting equipment, including for bicycling, skiing, golf, baseball and racket sports; hand-held computer games equipment which is self contained (not adapted for use with TV receivers); balls for games; board games; ice skates, athletic wrist supports, knee and joint supports; knee guards and supports for sports; wrist guards and supports for sports; chest guards and supports for sports; shoulder guards and supports for sports; neck guards and supports for sports; finger guards and supports for sports; hand guards and supports for sports; ear guards and supports for sports; elbow guards and supports for sports; arm guards and supports for sports; leg guards and supports for sports; shin guards and supports for sports; ankle guards and supports for sports; waist guards and supports for sports; abdomen guards and supports for sports; protective cups for sports;  athletic tape; athletic support wraps and pads; athletic braces and supports; computer games equipment adapted for use with TV receivers."},{"trademarkid":"87501234","intclass":"37","language":"English","goods":"Building construction; repair; installation services; dry-cleaning; furniture maintenance; stain removal; deodorizing and sanitizing services; upholstery care; cleaning and repair of furniture and textile upholstery; information and advice related to these services; carpet installation and repair; installation and maintenance of computer hardware for collecting, managing and warehousing data, fulfilling electronic orders, and providing warehouse management solutions; painting services; installation, maintenance and repair of computer hardware; heating equipment installation and repair; machinery installation, maintenance and repair; electric appliance installation and repair; air conditioning apparatus installation and repair; freezing equipment installation and repair; office machines and equipment installation, maintenance and repair; motor vehicle maintenance and repair; photographic apparatus repair; clock and watch repair; mending rubber tire, consultancy and advisory services in relation to insulation, including thermal and acoustic insulation, and related materials."}],"actions":{"trademarkid":"87501234","duedate":"19 Nov 2023","action":"Next Renewal Due","attorney":"Lena Stelczyk","complete":"0"},"tmlogouri":"/images/Pics.aspx?documentname=843/WIGGIN_13_K16.jpg"},
+//{"trademarkid":"87501234","recordownerid":"843","ownershipid":"2528598","trademarkprofilerecordownerid":"843","trademark":"3M IN DESIGN (1978 - RED)","tmlogo":"WIGGIN_13_K16.jpg","addressofrecord":"","country":"United Kingdom","applicationno":"UK00912325676","applicationdate":"2013-11-19T00:00:00","registrationno":"UK00912325676","registrationdate":"2020-01-10T00:00:00","trademarkstatus":"Registered","filereference":"103481.000002","nextrenewaldue":"2023-11-19T00:00:00","typeofregistration":"Former EUTM","supervisor":"Michael Browne","supervisor2":"Joanne Gibbs","supervisor3":"Olivia Aldous","supervisor4":"Akber Ahmed","supervisor5":"Lena Stelczyk","active":"1","hksection18":"0","recordcreated":"2021-06-02T11:18:00.517","recordcreatedby":"Dataconversion_May2021","recordupdated":"2022-05-31T16:20:05.113","recordupdatedby":"Lorraine (CB)","trademarkprofileid":"46439618","ownerid":"5119617","owner":"3M Company","owneraddress1":"3M Center","owneraddress2":"2501 Hudson Road","ownercity":"St Paul","ownerstate":"Minnesota","ownerpostalcode":"55144-1000","ownercountry":"United States of America","ownerfilereference":"Owner","clientid":"5118145","client":"3M Innovative Properties Company","clientaddress1":"3M Center, Accounting Department","clientaddress2":"Bldg 220-9-E-01, 2501 Hudson Road","clientcity":"St. Paul","clientstate":"Minnesota","clientpostalcode":"55144-1000","clientcountry":"United States of America","clientfilereference":"CLIENT","agentid":"5115402","agent":"Wiggin LLP","agentaddress1":"Jessop House","agentaddress2":"Jessop Avenue","agentcity":"Cheltenham","agentpostalcode":"GL50 3WG","agentcountry":"United Kingdom","agentfax":"+44 (0) 1242 224223","agentwebpage":"www.wiggin.co.uk","agentcompanyemail":"trademarks@wiggin.co.uk","agentfilereference":"Agent / Client","clientownersame":"0","goods":[{"trademarkid":"87501234","intclass":"12","language":"English","goods":"Fittings for bicycles; parts and fittings for land vehicles, namely balance weights for vehicle wheels; fitted covers for vehicles; semi-fitted covers for vehicles; handles, handle grips and grip tapes for bicycle handlebars."},{"trademarkid":"87501234","intclass":"14","language":"English","goods":"Precious metals and their alloys and goods in precious metals or coated therewith, not included in other classes; jewelry, precious stones; horological and chronometric instruments; clocks and watches; costume jewelry."},{"trademarkid":"87501234","intclass":"18","language":"English","goods":"Leather and imitations of leather, and goods made of these materials and not included in other classes; animal skins, hides; trunks and traveling bags; umbrellas, parasols and walking sticks; whips, harness and saddlery; briefcases, wallets and bags; handbags, rucksacks, purses; school bags; holdalls; clothing for animals; harnesses for animals; covers and collars for animals; kneepads for horses and horse rundown patches, all being horse protectors.."},{"trademarkid":"87501234","intclass":"25","language":"English","goods":"Clothing, footwear, headgear; ski-wear and outdoor clothing; T-shirts, caps, track suits, dressing gowns, socks, gloves; Swimsuits; waterproof clothing; scarves; belts for clothing, clothing manufactured from stain repellent textile materials."},{"trademarkid":"87501234","intclass":"28","language":"English","goods":"Games and playthings; gymnastic and sporting articles not included in other classes; decorations for Christmas trees; fishing tackle, equipment and accessories; including fishing lines, backing and leaders, line indicators, line casts, plumbs, reels, supports, tools, tackle and fly boxes, floats, tackle float swivels, weights, fishing bags, tippets, fishing poles and rods, fly tying tools and materials, creels, cases and wallets, rod holders, clamps, line cutters, rod and reel cases, reel pouches; fishing flies, fly cleaning pads, fly line dressing, fly floatant and dubbing sticks; parts and fittings for all the aforesaid goods; synthetic fishing bait and ground baits; handles, handle grips and grip tapes for sporting equipment, namely, rackets, golf clubs and ski poles; gloves for use with sporting equipment, including for bicycling, skiing, golf, baseball and racket sports; hand-held computer games equipment which is self contained (not adapted for use with TV receivers); balls for games; board games; ice skates, athletic wrist supports, knee and joint supports; knee guards and supports for sports; wrist guards and supports for sports; chest guards and supports for sports; shoulder guards and supports for sports; neck guards and supports for sports; finger guards and supports for sports; hand guards and supports for sports; ear guards and supports for sports; elbow guards and supports for sports; arm guards and supports for sports; leg guards and supports for sports; shin guards and supports for sports; ankle guards and supports for sports; waist guards and supports for sports; abdomen guards and supports for sports; protective cups for sports;  athletic tape; athletic support wraps and pads; athletic braces and supports; computer games equipment adapted for use with TV receivers."},{"trademarkid":"87501234","intclass":"37","language":"English","goods":"Building construction; repair; installation services; dry-cleaning; furniture maintenance; stain removal; deodorizing and sanitizing services; upholstery care; cleaning and repair of furniture and textile upholstery; information and advice related to these services; carpet installation and repair; installation and maintenance of computer hardware for collecting, managing and warehousing data, fulfilling electronic orders, and providing warehouse management solutions; painting services; installation, maintenance and repair of computer hardware; heating equipment installation and repair; machinery installation, maintenance and repair; electric appliance installation and repair; air conditioning apparatus installation and repair; freezing equipment installation and repair; office machines and equipment installation, maintenance and repair; motor vehicle maintenance and repair; photographic apparatus repair; clock and watch repair; mending rubber tire, consultancy and advisory services in relation to insulation, including thermal and acoustic insulation, and related materials."}],"actions":{"trademarkid":"87501234","duedate":"19 Nov 2023","action":"Next Renewal Due","attorney":"Lena Stelczyk","complete":"0"},"tmlogouri":"/images/Pics.aspx?documentname=843/WIGGIN_13_K16.jpg"}
+
+//	]
+
+    convertJsontoHtmlTable();
+
+    function convertJsontoHtmlTable()
+    {
+
+        //Getting value for table header
+        //var tablecolumns = [];
+        //for (var i = 0; i < employess.length; i++) {
+        //    for (var key in employess[i]) {
+        //        if (tablecolumns.indexOf(key) === -1) {
+                  
+						//if (key == "trademark") {
+		//					tablecolumns.push(key)
+						//};
+                    
+        //        }
+        //    }
+        //}
+
+        //Getting value for table header
+        var tablecolumns = [];
+        for (var i = 0; i < employess.length; i++) {
+            for (var key in employess[i]) {
+
+                for (var key1 in employess[i][key]) { 
+
+                    for (var key2 in employess[i][key][key1]) { 
+
+                            //alert(key2);
+
+                            if (tablecolumns.indexOf(key2) === -1) {
+                                                        alert(key2);
+
+                                    //if (key == "trademark") {
+                                        tablecolumns.push(key2)
+                                    //};
+                                
+                            }
+
+                    }
+                }
+            }
+        }
+
+        //Creating html table and adding class to it
+        var tableemployee = document.createElement("table");
+        tableemployee.classList.add("table");
+        tableemployee.classList.add("table-striped");
+        tableemployee.classList.add("table-bordered");
+        tableemployee.classList.add("table-hover")
+
+        //Creating header of the HTML table using
+        //tr
+        var tr = tableemployee.insertRow(-1);
+
+        for (var i = 0; i < tablecolumns.length; i++) {
+            //header
+            var th = document.createElement("th");
+            //if (tablecolumns[i] == "trademark") {
+            	th.innerHTML = tablecolumns[i];
+            //};
+          
+            tr.appendChild(th);
+        }
+
+        // Add employee JSON data in table as tr or rows
+        for (var i = 0; i < employess.length; i++) {
+            tr = tableemployee.insertRow(-1);
+            for (var j = 0; j < tablecolumns.length; j++) {
+                var tabCell = tr.insertCell(-1);
+
+              	if (tablecolumns[j] == "goods") {
+					var thegoods = "";
+					var count_goods_rows = "";
+					count_goods_rows = employess[i][tablecolumns[j]].length;
+
+					//this tests if more than 1 row exists within a nested key value pair
+					if (isNaN(count_goods_rows) == true) {
+						theactions = theactions + employess[i][tablecolumns[j]].intclass + "<br>" + employess[i][tablecolumns[j]].goods + "<br><br>"
+					}
+					else {
+						for (var g = 0; g < employess[i][tablecolumns[j]].length; g++) {
+							thegoods = thegoods + employess[i][tablecolumns[j]][g].intclass + "<br>" + employess[i][tablecolumns[j]][g].goods + "<br><br>"
+						};	
+					}
+
+					tabCell.innerHTML = thegoods;
+                } 
+				else if (tablecolumns[j] == "actions") {
+					var theactions = "";
+					var count_action_rows = "";
+					count_action_rows = employess[i][tablecolumns[j]].length;
+					
+					//this tests if more than 1 row exists within a nested key value pair
+					if (isNaN(count_action_rows) == true) {
+						theactions = theactions + employess[i][tablecolumns[j]].duedate + "<br>" + employess[i][tablecolumns[j]].action + "<br><br>"
+					}
+					else {
+						for (var r = 0; r < 0; r++) {
+							alert(employess[i][tablecolumns[j]][r].duedate);
+							theactions = theactions + employess[i][tablecolumns[j]][r].duedate + "<br>" + employess[i][tablecolumns[j]][r].action + "<br><br>"
+						};	
+					}
+
+					tabCell.innerHTML = theactions;
+				}
+				else
+				{
+					tabCell.innerHTML = employess[i][tablecolumns[j]];
+				};
+
+            };
+        };
+
+        //Final step , append html table to the container div
+        var employeedivcontainer = document.getElementById("employeedivcontainer");
+        employeedivcontainer.innerHTML = "";
+        employeedivcontainer.appendChild(tableemployee);
+    }
+</script>
