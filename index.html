@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Wiggin Integration</title>
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/colors.css">
+
+    <title> Use of JQuery to Add Edit Delete Table Row</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  
+    <!-- import the methods for XML to JSON conversion functionality -->
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script type='text/javascript' src="xml2json.js"></script>
+
+
+    
+    <style>
+        table {
+            border-collapse:separate;
+            border-spacing:0px;
+        }
+        td, th {
+        border: 1px solid black;
+        padding: 10px;
+        }
+        td{
+        background: white;
+        color: black;
+        font-size: smaller;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .primary{
+        background-color: brown;
+        position: sticky;
+        }
+        th {
+        background: #abd0f6;
+        color: black;
+        border-radius: 0;
+        top: 0;
+        padding: 10px;
+        font-size: smaller;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        tbody > tr:hover {
+        background-color: white;
+        }
+    </style>
+    
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+        table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+        table th, table td
+        {
+            padding: 5px;
+            border-color: #ccc;
+        }
+    </style>
+
+    <style>
+        .loader {
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 100px;
+          height: 100px;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+          left: 50%;
+          top: 50%;
+          position: absolute;
+
+        }
+        
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        </style>
+
+</head>
+<body>
+
+<!-- Header
+================================================== -->
+<header class="sticky-header">
+    <div class="container">
+        <div class="sixteen columns">
+    
+            <!-- Logo -->
+            <div id="logo">
+                <h1><a href="index.html"><img src="Syke.png" alt="Work Scout" /></a></h1>
+            </div>
+    
+            <!-- Menu -->
+            <nav id="navigation" class="menu">
+                <ul id="responsive">
+    
+                    <li><a href="index.html">Integrations</a>
+                        <ul>
+                            <li><a href="#">WebTMS Trademark</a></li>
+                        </ul>
+                    </li>
+    
+                    <li><a href="#">Dashboard</a>
+                        <ul>
+                            <li><a href="#">Integration Error Logs</a></li>
+                        </ul>
+                    </li>
+                </ul>
+    
+    
+                <ul class="responsive float-right">
+                    <li><a href="#"><i class="fa fa-user"></i> Client Sign Up</a></li>
+                    <li><a href="#"><i class="fa fa-lock"></i> Client Log In</a></li>
+                </ul>
+    
+            </nav>
+    
+            <!-- Navigation -->
+            <div id="mobile-navigation">
+                <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+            </div>
+    
+        </div>
+    </div>
+    </header>
+    <div class="clearfix"></div>
+
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar">
+        <div class="container">
+            <div class="ten columns">
+                <span>1 Integration(s) Ready</span>
+                <h2>WebTMS</h2>
+            </div>
+
+            <!-- Spinner for displaying while getting results
+================================================== -->
+            <div class="six columns" id='loading_spinner'><center><img src="Syke.png" alt=""></center></div>
+
+        </div>
+    </div>
+
+<!-- Header
+================================================== -->
+<header class="sticky-header">
+    <div class="container">
+        <div class="sixteen columns">
+    
+            <!-- Execute Button -->
+            <div class="three columns">
+                <input type="button" value="Execute Service" onclick="GetSoapResponse();" />
+            </div>
+
+            <!-- Execute Button -->
+            <div class="three columns">
+                <input type="button" value="Send to HighQ" onclick="SendResponsetoHighQ('0', 'Wiggin LLP','South Africa','1001','2022-01-02 23:59:59','1001','2022-01-02 23:59:59','Completed','Wiggin','Syke','Wiggin','1,2,3,4,5','Renewal Pending');" />
+            </div>
+    
+            <!-- Execute Button -->
+            <div class="three columns">
+                <input type="button" value="UploadFile" onclick="alert(GetWebTMSTimeStamp())" />
+            </div>
+
+            <!-- Read File Button -->
+            <div class="three columns">
+                <input type="file" name="trademark_img" accept="*image/*" id="trademark_img" multiple>
+            </div>
+
+        </div>
+    </div>
+    </header>
+    <div class="clearfix"></div>
+
+    <!-- place to XML results
+================================================== -->
+    <p id="sampleResult"></p>
+
+    <!-- Table to display results
+================================================== -->
+<div class="container">
+    <div class="sixteen columns">
+
+        <Table id = 'APIresult' cellpadding='10px' style='text-align: left;'>
+            <thead>
+                <tr></tr>
+            </thead>
+            <tbody></tbody>
+        </Table>
+        
+    </div>
+</div>
+
+        <!-- TextArea used to convert XML to JSON
+    ================================================== -->
+    <div>
+        <textarea id="jsonArea" style="visibility: hidden;" cols="1" rows="1"></textarea>
+    </div>  
+
+</body>
+
+</html>
+
+<!-- conversion of xml to json functionality -->
+<script type='text/javascript'>
+
+    var x2js = new X2JS();
+    
+    function convertXml2JSon() {
+        $("#jsonArea").val(JSON.stringify(x2js.xml_str2json($("#xmlArea").val())));
+    };
+    
+    function convertJSon2XML() {
+        $("#xmlArea").val(x2js.json2xml_str($.parseJSON($("#jsonArea").val())));
+    };
+
+</script>
+
+<script type="text/javascript">
+
+    function SendResponsetoHighQ(pexternalID, ptrademark, pcountry, papplication_no, papplication_date, pregistration_no, pregistration_date, ptrademark_status, powner, pclient, pagent, pbusiness_group, pclass, pactions) {
+
+        let xmlhttpHighQ = new XMLHttpRequest();
+        xmlhttpHighQ.open('POST', 'https://cp.wiggin.co.uk/wigginuk/api/1/isheet/item/create', true);
+        xmlhttpHighQ.setRequestHeader("Authorization", "Bearer JtVdYThJjD0Z5gh1LNnf1n/Cl2KKJp1t");
+
+        // build API request
+        let srHighQ = 
+                    '{'+
+                    '    "metaData": {'+
+                    '      "siteName": "Wiggins Test Integrations",'+
+                    '       "sheetName": "Wiggins Fields",'+
+                    '       "siteid": "37",'+
+                    '       "sheetid": "27"'+
+                    '     },'+
+                    '     "head": {'+
+                    '       "headColumn": ['+
+                    '         {'+
+                    '           "columnValue": "Trademark",'+
+                    '          "sequence": "0"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Country",'+
+                    '          "sequence": "1"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Application No",'+
+                    '          "sequence": "2"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Application Date",'+
+                    '           "sequence": "3"'+
+                    '         },'+
+                    '         {'+
+                    '           "columnValue": "Registration No",'+
+                    '          "sequence": "4"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Registration Date",'+
+                    '          "sequence": "5"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Trademark Status",'+
+                    '          "sequence": "6"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Owner",'+
+                    '          "sequence": "7"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Client",'+
+                    '          "sequence": "8"'+
+                    '        },'+
+                    '        {'+
+                    '          "columnValue": "Agent",'+
+                    '           "sequence": "9"'+
+                    '         },'+
+                    '        {'+
+                    '          "columnValue": "Business Group",'+
+                    '           "sequence": "10"'+
+                    '         },'+
+                    '         {'+
+                    '           "columnValue": "Classes",'+
+                    '          "sequence": "11"'+
+                    '        },'+
+                    '         {'+
+                    '           "columnValue": "Actions",'+
+                    '          "sequence": "12"'+
+                    '        },'+
+                    '         {'+
+                    '           "columnValue": "Last Updated",'+
+                    '          "sequence": "13"'+
+                    '        }'+
+                    '      ]'+
+                    '    },'+
+                    '    "data": {'+
+                    '      "item": ['+
+                    '        {'+
+                    '          "externalID": "' + pexternalID + '",'+
+                    '          "itemID": "0",'+
+                    '          "column": ['+
+                    '            {'+
+                    '              "sequence": "0",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + ptrademark + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 0'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "1",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pcountry + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 1'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "2",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + papplication_no + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 2'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "3",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + papplication_date + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 3'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "4",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pregistration_no + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 4'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "5",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pregistration_date + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 5'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "6",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + ptrademark_status + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 6'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "7",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + powner + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 7'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "8",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pclient + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 8'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "9",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pagent + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 9'+
+                    '            },'+
+
+                    '            {'+
+                    '              "sequence": "10",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pbusiness_group + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": false,'+
+                    '              "columnID": 10'+
+                    '            },'+
+                    '            {'+
+                    '              "sequence": "11",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pclass + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 11'+
+                    '            },'+
+
+                    '            {'+
+                    '              "sequence": "12",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + pactions + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 12'+
+                    '            },'+
+
+                    '            {'+
+                    '              "sequence": "13",'+
+                    '              "rawData": {'+
+                    '                "text": ['+
+                    '                  "' + GetWebTMSTimeStamp() + '"'+
+                    '                ],'+
+                    '                "linkDisplayName": "",'+
+                    '                "linkDisplayURL": ""'+
+                    '              },'+
+                    '              "title": "",'+
+                    '              "type": "",'+
+                    '              "mendatory": true,'+
+                    '              "columnID": 13'+
+                    '            }'+
+
+                    '          ]'+
+                    '        }'+
+                    '      ]'+
+                    '    },'+
+                    '    "name": "",'+
+                    '    "id": 0,'+
+                    '    "type": "",'+
+                    '    "templateID": 0'+
+                    '  }';
+
+        //alert(srHighQ);
+
+        xmlhttpHighQ.onreadystatechange = function () {
+
+            if (xmlhttpHighQ.readyState == 4) {
+
+                //alert(xmlhttpHighQ.readyState);
+                //alert(xmlhttpHighQ.status);
+
+                if (xmlhttpHighQ.status == 200) {
+
+                    // stop spinner
+                    document.getElementById('loading_spinner').className = '';
+
+                }
+            }
+        };
+
+        // Send the POST request 
+        xmlhttpHighQ.setRequestHeader('Content-Type', 'application/json');
+        xmlhttpHighQ.send(srHighQ);
+
+        //start spinner while waitig for results
+        document.getElementById('loading_spinner').className = 'loader';
+
+        // send request
+        // ...
+
+    };
+
+    function GetSoapResponse() {
+
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', 'https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx', true);
+
+        // build SOAP request
+        let sr =
+            '<?xml version="1.0" encoding="utf-8"?>' +
+            '<soap12:Envelope ' + 
+                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+                'xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
+                '<soap12:Body>' +
+
+                    '<RecordExport xmlns="http://tempuri.org/">' +
+
+                        '<username>Syke.Integration</username>' +
+                        '<password>Syke2022!W3bTmS</password>' +
+                        '<modulecode>2</modulecode>' +
+                        //'<clientid>5118145</clientid>' +
+                        '<client>*SAGE GLOBAL SERVICES*</client>' +
+                        //'<tm_regnumber>UK00001360113</tm_regnumber>' + 
+                        //'<tm_regnumber>UK00002048608</tm_regnumber>' + 
+                        //'<client>Endemol Shine IP B.V.</client>' + 
+                        //'<tm_trademark>PROTECTOR SAFETY AND DESIGN (STYLIZED PS HEART)</tm_trademark>' +
+                        '<pics>1</pics>' +
+
+                    '</RecordExport>' +
+
+                '</soap12:Body>' +
+            '</soap12:Envelope>';                
+
+        xmlhttp.onreadystatechange = function () {
+
+            if (xmlhttp.readyState == 4) {
+
+                if (xmlhttp.status == 200) {
+
+                    // hide the element; unhide to debug
+                    document.getElementById("sampleResult").style.display = "none";
+
+                    document.getElementById("sampleResult").innerHTML = xmlhttp.responseText;
+
+                    // load the results from the request
+                    LoadSoapResponse(document.getElementById('sampleResult').textContent);
+
+                    // stop spinner
+                    document.getElementById('loading_spinner').className = '';
+
+                }
+            }
+        };
+
+        // Send the POST request 
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+        xmlhttp.send(sr);
+
+        //start spinner while waitig for results
+        document.getElementById('loading_spinner').className = 'loader';
+
+        // send request
+        // ...
+
+    };
+
+    function LoadSoapResponse(theResponse) {
+
+            let xmlContent = '';
+
+            let tableresult = document.getElementById('APIresult')
+
+            xml=theResponse;
+
+                    xmlContent = xml;
+                    $("#jsonArea").val(JSON.stringify(x2js.xml_str2json( xmlContent  )));
+
+                    let str = $("#jsonArea").val();
+                    
+                    //strip junk tags from WEBTMS XML conversion
+                    let res = str.replace('{"DOC":{"mark":[', "");
+                    res = res.replace(']}}', "");
+
+                    //put square brackets around the results to make it an object
+                    res = '[' + res + ']';
+
+                    //now we have it perfect to parse as JSON object
+                    obj = JSON.parse(res);
+
+                    //call function and pass JSON object
+                    ReadJsonObjectData(obj);
+
+    };
+
+    function ReadJsonObjectData(obj)
+    {
+
+        //Getting value for table header
+        for (var i = 0; i < obj.length; i++) {
+
+            // start a new row in table
+            let row = document.createElement('tr')
+
+            //initialise variables
+            var pexternalID         = "";
+            var ptrademark          = "";
+            var pcountry            = "";
+            var papplication_no     = ""; 
+            var papplication_date   = "";
+            var pregistration_no    = "";
+            var pregistration_date  = "";
+            var ptrademark_status   = "";
+            var powner              = "";
+            var pclient             = "";
+            var pagent              = "";
+            var pbusiness_group     = "";
+            var pclass              = "";
+            var pactions            = "";
+
+            for (var key in obj[i]) {
+
+                if (key == "goods") {
+					var thegoods = "";
+					var count_goods_rows = "";
+					count_goods_rows = obj[i][key].length;
+
+					//this tests if more than 1 row exists within a nested key value pair
+					if (isNaN(count_goods_rows) == true) {
+						thegoods = thegoods + obj[i][key].intclass;
+					}
+					else {
+						for (var g = 0; g < obj[i][key].length; g++) {
+                            thegoods = thegoods + obj[i][key][g].intclass + ", ";
+						};	
+					}
+
+                    let td = document.createElement('td')
+                    td.innerText = "(classes)" + "\n\n" + thegoods;
+                    row.appendChild(td);
+                    APIresult.children[1].appendChild(row);
+
+                    //pass value to parameter for HighQ
+                    pclass = thegoods;
+
+                } 
+                
+                else
+
+                if (key == "actions") {
+					var theactions = "";
+					var count_actions_rows = "";
+					count_actions_rows = obj[i][key].length;
+
+					//this tests if more than 1 row exists within a nested key value pair
+					if (isNaN(count_actions_rows) == true) {
+						theactions = theactions + "***" + obj[i][key].duedate + "->" + obj[i][key].action + "";
+					}
+					else {
+						for (var g = 0; g < obj[i][key].length; g++) {
+							theactions = theactions + "***" + obj[i][key][g].duedate + "->" + obj[i][key][g].action + "";
+						};	
+					}
+
+                    let td = document.createElement('td')
+                    td.innerText = "(actions)" + "\n\n" + theactions;
+                    row.appendChild(td);
+                    APIresult.children[1].appendChild(row);
+
+                    //pass value to parameter for HighQ
+                    pactions = theactions;
+
+                } 
+                
+                else
+
+                if (key == "businessgroup") {
+					var thebusinessgroup = "";
+					var count_businessgroup_rows = "";
+					count_businessgroup_rows = obj[i][key].length;
+
+					//this tests if more than 1 row exists within a nested key value pair
+					if (isNaN(count_businessgroup_rows) == true) {
+						thebusinessgroup = thebusinessgroup + obj[i][key].businessgroup + "\n\n";
+					}
+					else {
+						for (var g = 0; g < obj[i][key].length; g++) {
+							thebusinessgroup = thebusinessgroup + obj[i][key][g].businessgroup + "\n\n";
+						};	
+					}
+
+                    let td = document.createElement('td')
+                    td.innerText = "(business group)" + "\n\n" + thebusinessgroup;
+                    row.appendChild(td);
+                    APIresult.children[1].appendChild(row);
+
+                    //pass value to parameter for HighQ
+                    pbusiness_group = thebusinessgroup;
+
+                }
+
+                else
+
+                {
+
+                    //alert(key + "-->" + obj[i][key]);
+                    if (
+                            //(key == "tmlogo") ||
+                            (key == "owner") ||
+                            (key == "country") ||
+                            (key == "trademarkstatus") ||
+                            (key == "applicationno") ||
+                            (key == "applicationdate") ||
+                            (key == "registrationno") ||
+                            (key == "registrationdate") ||
+                            (key == "agent") ||
+                            (key == "client")
+                            
+                        )   {
+
+                                let td = document.createElement('td')
+                                td.innerText = "(" + key + ")" + "\n\n" +obj[i][key];
+                                row.appendChild(td);
+                                APIresult.children[1].appendChild(row);
+
+                                if (key == "owner") { powner = obj[i][key] };
+                                if (key == "country") { pcountry = obj[i][key] };
+                                if (key == "trademarkstatus") { ptrademark_status = obj[i][key] };
+                                if (key == "applicationno") { papplication_no = obj[i][key] };
+                                if (key == "applicationdate") { papplication_date = obj[i][key] };
+                                if (key == "registrationno") { pregistration_no = obj[i][key] };
+                                if (key == "registrationdate") { pregistration_date = obj[i][key] };
+                                if (key == "agent") { pagent = obj[i][key] };
+                                if (key == "client") { pclient = obj[i][key] };
+
+                            }
+                    else
+                    
+                    if (key == "trademark") {
+
+                        let logofound = 'no';
+
+                        for (var tmlogokey in obj[i]) {
+
+                            if (tmlogokey == "tmlogodata") {
+                                
+                                    //alert("i found a logo");
+                                    logofound = "yes";
+
+                            } else
+
+                            {
+
+                            }
+
+                        };    
+
+                        if (logofound == "no") {
+    
+                            let td = document.createElement('td')
+                            td.innerText = "(" + key + ")" + "\n\n" +obj[i][key];
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+
+                            //pass value to parameter for HighQ
+                            ptrademark = obj[i][key];
+
+                        } 
+
+                        else {
+
+                            let tmimage = document.createElement("IMG");
+
+                            tmimage.setAttribute("src",'data:image/jpeg;base64,' + obj[i]["tmlogodata"]);
+                            tmimage.setAttribute("style", 'width:50px;');
+                            tmimage.setAttribute("style", 'height:50px;');
+
+                            let td = document.createElement('td')
+                            td.innerText = "(" + key + ")" + "\n\n" +obj[i][key];
+                            td.appendChild(tmimage);
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+
+                            //pass value to parameter for HighQ
+                            ptrademark = obj[i][key];
+
+                            //create file in ParentFolder
+                            CreateFileInParentFolder('data:image/jpeg;base64,' + obj[i]["tmlogodata"], "wiggin" + i + ".jpeg", i);
+
+                        };
+                        
+
+                    };    
+
+                }
+
+            }
+
+            SendResponsetoHighQ(
+                i, 
+                ptrademark,
+                pcountry,
+                papplication_no,
+                papplication_date.substring(0, 10) + ' 23:59:59',
+                pregistration_no,
+                pregistration_date.substring(0, 10) + ' 23:59:59',
+                ptrademark_status,
+                powner,
+                pclient,
+                pagent,
+                pbusiness_group,
+                pclass,
+                pactions
+            );
+
+        }
+
+    };
+
+    function CreateFileInParentFolder(dataurlbase64, filename, doc_id) {
+
+        var text, parser, xmlDoc, file_id;
+        var imagefile = dataURLtoFile(dataurlbase64, filename);
+        var data = new FormData();
+
+        data.append("filename", doc_id);
+        data.append("dmsparentfolderid", "634");
+        data.append("dmsdatabasename", "CMIS_20");
+        data.append("dmsdocid", doc_id);
+        data.append("file", imagefile);
+        data.append("dmsversion", "1");
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://cp.wiggin.co.uk/wigginuk/api/1/files/content?parentfolderid=634", true);
+
+        xhr.onreadystatechange = function () {
+
+            if (xhr.readyState == 4) {
+        
+                if (xhr.status == 201) {
+        
+                    parser = new DOMParser();
+                    xmlDoc = parser.parseFromString(xhr.responseText,"text/xml");
+                    file_id = parseInt(xmlDoc.getElementsByTagName("fileid")[0].childNodes[0].nodeValue);
+                    //alert(file_id);
+                    LinkiSheetToFileID(doc_id, file_id);
+        
+                }
+            }
+        };
+
+        xhr.setRequestHeader("Authorization", "Bearer JtVdYThJjD0Z5gh1LNnf1n/Cl2KKJp1t");
+        xhr.send(data);
+
+    };
+
+    function dataURLtoFile(dataurl, filename) {
+ 
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    };
+
+    function LinkiSheetToFileID(pexternalID, file_resource_id) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('PUT', 'https://cp.wiggin.co.uk/wigginuk/api/3/isheet/27/items/byexternalid/' + pexternalID, true);
+        xhr.setRequestHeader("Authorization", "Bearer JtVdYThJjD0Z5gh1LNnf1n/Cl2KKJp1t");
+
+        // build API request
+        let srFileResource = 
+                    '<isheet recordcount="1" totalrecordcount="1">' +
+                    '    <metadata>' +
+                    '        <sitename siteid="37"></sitename>' +
+                    '        <sheetname sheetid="27"></sheetname>' +
+                    '    </metadata>' +
+                    '    <data>' +
+                    '        <item externalid="' + pexternalID + '">' +
+                    '            <column sequence="17" attributecolumnid="528">' +
+                    '                <rawdata>' +
+                    '                    <documents>' +
+                    '                        <document>' +
+                    '                            <docid>' + file_resource_id + '</docid>' +
+                    '                        </document>' +
+                    '                    </documents>' +
+                    '                </rawdata>' +
+                    '                <displaydata>' +
+                    '                    <documents>' +
+                    '                        <document>' +
+                    '                            <docid>' + file_resource_id + '</docid>' +
+                    '                        </document>' +
+                    '                    </documents>' +
+                    '                </displaydata>' +
+                    '            </column>' +
+                    '        </item>' +
+                    '    </data>' +
+                    '</isheet>';
+
+        xhr.onreadystatechange = function () {
+
+            if (xhr.readyState == 4) {
+
+                if (xhr.status == 200) {
+
+                        //alert('boom');
+
+                }
+            }
+        };
+
+        // Send the POST request 
+        xhr.setRequestHeader('Content-Type', 'application/xml');
+        xhr.send(srFileResource);
+
+        // send request
+        // ...
+
+    };
+
+
+    function GetWebTMSTimeStamp(){
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+
+        let hrs  = today.getHours();
+        let mins = today.getMinutes();
+        let secs = today.getSeconds();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        const formattedToday = 'WebTMS ' + dd + '/' + mm + '/' + yyyy + ' @ ' + hrs + ':' + mins + ':' + secs;
+
+        return formattedToday;
+
+    };
+
+</script> 

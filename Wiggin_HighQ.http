@@ -1,0 +1,516 @@
+// Wiggin test site
+//https://cp.wiggin.co.uk/wigginuk/lstv_apiApplication.action
+// Client ID - 118
+// Client Secret - 2a0I4L9kpOzqB8c4umQ7fDHqDpgvtlgg
+
+//HighQ
+// Site ID - 37
+// iSheet ID - 27
+
+###
+// note:- run the link below once an application has been setup in HighQ instance and pass the "client_id" from application
+// note: 	Setup application in HighQ
+//			1. Go to System Admin in HighQ
+//			2. Go to API Application Registration
+//			3. Click on "Add Applcation"
+//			4. Enter "Application Name" and "Display Name"
+//			5. Save
+// note:-	This will generate a ClientID; Use Client ID in below request
+//			This will return a code on the response, which will be used in API requests to HighQ
+https://cp.wiggin.co.uk/wigginuk/authorize.action?response_type=code&client_id=118&redirect_uri=http://www.highq.com/
+
+###
+// note:- run the POST below to get the "code" parameter to get "Authorization: Bearer" header value
+// note: 	Setup application in HighQ
+POST https://cp.wiggin.co.uk/wigginuk/api/oauth2/token HTTP/1.1
+Host: cp.wiggin.co.uk
+Content-Type: application/x-www-form-urlencoded
+Body: grant_type=authorization_code&client_id=118&client_secret=2a0I4L9kpOzqB8c4umQ7fDHqDpgvtlgg&code=FtrXm0dwQG
+
+###
+// note:- run the POST below to get list of iSheets in Site ID
+GET https://connect.syke.tech/syke/api/1/isheets?siteid=565 HTTP/1.1
+//Host: connect.syke.tech
+//Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+accept: application/json
+
+###
+// note:- this is the Cribl test site that was setup for Cribl Site in Syke HighQ instance
+//        this lists all the iSheet Columns
+// note:- the Cribl site ID is 545
+// note:- the Cribl iSheet ID is 1197
+GET https://cp.wiggin.co.uk/wigginuk/api/1/isheets/27/columns HTTP/1.1
+//Host: connect.syke.tech
+//Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer: _9qXXtw35owp5qGi1WG6g6uMTGiDj7oQ
+accept: application/json
+
+###
+// note:- this is the Cribl test site that was setup for Cribl Site in Syke HighQ instance
+//        this lists site details
+// note:- the Cribl site ID is 545
+// note:- the Cribl iSheet ID is 1197
+GET https://cp.wiggin.co.uk/wigginuk/api/13/sites/37 HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: _9qXXtw35owp5qGi1WG6g6uMTGiDj7oQ
+accept: application/json
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// SUBMITTED BY
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://cp.wiggin.co.uk/wigginuk/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Wiggins Test Integrations",
+    "sheetName": "Wiggins Fields",
+    "siteid": "37",
+    "sheetid": "27"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Trademark",
+        "sequence": "0"
+      },
+      {
+        "columnValue": "Country",
+        "sequence": "1"
+      },
+      {
+        "columnValue": "Application No",
+        "sequence": "2"
+      },
+      {
+        "columnValue": "Application Date",
+        "sequence": "3"
+      },
+      {
+        "columnValue": "Registration No",
+        "sequence": "4"
+      },
+      {
+        "columnValue": "Registration Date",
+        "sequence": "5"
+      },
+      {
+        "columnValue": "Trademark Status",
+        "sequence": "6"
+      },
+      {
+        "columnValue": "Owner",
+        "sequence": "7"
+      },
+      {
+        "columnValue": "Client",
+        "sequence": "8"
+      },
+      {
+        "columnValue": "Agent",
+        "sequence": "9"
+      },
+      {
+        "columnValue": "Business Group",
+        "sequence": "10"
+      },
+      {
+        "columnValue": "Classes",
+        "sequence": "11"
+      },
+      {
+        "columnValue": "Actions",
+        "sequence": "12"
+      }   
+
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "2",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "0",
+            "rawData": {
+              "text": [
+                "Wiggin LLP"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 0
+          },
+
+          {
+            "sequence": "1",
+            "rawData": {
+              "text": [
+                "South Africa"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 1
+          },
+
+          {
+            "sequence": "2",
+            "rawData": {
+              "text": [
+                "1001"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 2
+          },
+
+          {
+            "sequence": "3",
+            "rawData": {
+              "text": [
+                "2022-08-12 23:59:59"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 3
+          },
+
+          {
+            "sequence": "4",
+            "rawData": {
+              "text": [
+                "1001"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 4
+          },
+
+          {
+            "sequence": "5",
+            "rawData": {
+              "text": [
+                "2022-01-02 23:59:59"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 5
+          },
+
+          {
+            "sequence": "6",
+            "rawData": {
+              "text": [
+                "Completed"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 6
+          },
+
+          {
+            "sequence": "7",
+            "rawData": {
+              "text": [
+                "Wiggin"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 7
+          },
+
+          {
+            "sequence": "8",
+            "rawData": {
+              "text": [
+                "Syke"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 8
+          },
+
+          {
+            "sequence": "9",
+            "rawData": {
+              "text": [
+                "Wiggin"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 9
+          },
+
+          {
+            "sequence": "10",
+            "rawData": {
+              "text": [
+                "Business Class"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 10
+          },
+
+          {
+            "sequence": "11",
+            "rawData": {
+              "text": [
+                "1,2,3,4,5"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 11
+          },
+
+          {
+            "sequence": "12",
+            "rawData": {
+              "text": [
+                "Renewal Pending"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 12
+          }
+
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// SUBMITTED BY
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://cp.wiggin.co.uk/wigginuk/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: _9qXXtw35owp5qGi1WG6g6uMTGiDj7oQ
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Wiggins Test Integrations",
+    "sheetName": "Wiggins Fields",
+    "siteid": "37",
+    "sheetid": "27"
+  },
+  "head": {
+    "headColumn": [
+
+      {
+        "columnValue": "Attachment",
+        "sequence": "15"
+      }     
+
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "2",
+        "itemID": "0",
+        "column": [
+
+          {
+            "sequence": "15",
+            "rawData": {
+              "attachments": {
+                                          "attachment": {
+                                              "id": 756,
+                                              "parentfolderid": 634,
+                                              "siteid": 37
+                                          }
+                }
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 522
+          }
+
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+POST https://cp.wiggin.co.uk/wigginuk/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sheet>
+    <metaData>
+        <siteid>37</siteid>
+        <sheetid>27</sheetid>
+    </metaData>
+    <head>
+        <headColumn sequence="1">
+            <columnValue>Trademark</columnValue>
+        </headColumn>
+        <headColumn sequence="16">
+            <columnValue>Attachment</columnValue>
+        </headColumn>
+        <headColumn sequence="17">
+            <columnValue>FileAttach</columnValue>
+        </headColumn>
+    </head>
+    <data>
+        <item externalID="1">
+            <column sequence="1">
+                <rawData>
+                    <text>Testing</text>
+                </rawData>
+            </column>
+            <column sequence="16" attributecolumnid="522">
+                 <rawdata>
+                        <attachments>
+                            <attachment>
+                                <id>757</id>
+                            </attachment>
+                        </attachments>
+                </rawdata>
+            </column>
+            <column sequence="17" attributecolumnid="528">
+              <rawdata>
+                <documents>
+                  <document>
+                    <docid>757</docid>
+                  </document>
+                </documents>
+              </rawdata>
+              <displaydata>
+                <documents>
+                  <document>
+                    <docid>757</docid>
+                  </document>
+                </documents>
+              </displaydata>
+            </column>
+        </item>
+    </data>
+</sheet>
+
+###
+PUT https://cp.wiggin.co.uk/wigginuk/api/3/isheet/27/items/byexternalid/2 HTTP/1.1
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/xml
+
+<isheet recordcount="1" totalrecordcount="1">
+	<metadata>
+		<sitename siteid="37"></sitename>
+		<sheetname sheetid="27"></sheetname>
+	</metadata>
+	<data>
+		<item externalid="2">
+			<column sequence="17" attributecolumnid="528">
+				<rawdata>
+					<documents>
+						<document>
+							<docid>768</docid>
+						</document>
+					</documents>
+				</rawdata>
+				<displaydata>
+					<documents>
+						<document>
+							<docid>768</docid>
+						</document>
+					</documents>
+				</displaydata>
+			</column>
+		</item>
+	</data>
+</isheet>
+
+###
+GET https://cp.wiggin.co.uk/wigginuk/api/1/files/768 HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/xml
+
+###
+GET https://cp.wiggin.co.uk/wigginuk/api/3/isheet/27/items/byexternalid/1
+//Host: connect.syke.tech
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/xml
+
+
+###
+GET  https://cp.wiggin.co.uk/wigginuk/api/6/documents?fields=all
+//Host: connect.syke.tech
+Authorization: Bearer: Da0I1dmdKWHTwuXq4xMOPjQL9LxbWAEC
+Content-Type: application/xml

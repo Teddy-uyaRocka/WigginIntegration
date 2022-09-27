@@ -1,0 +1,92 @@
+curl --location --request POST 'https://connect.syke.tech/syke/api/1/files/content?parentfolderid=95243' \
+--header 'Authorization: Bearer 027OxODBkYCXRrP4TIC6jBUQyLPLBOnQ' \
+--header 'Cookie: ROUTEID=.app4b68' \
+--form 'filename="wiggin_test2"' \
+--form 'dmsparentfolderid="95243"' \
+--form 'dmsdatabasename="CMIS_20"' \
+--form 'dmsdocid="4"' \
+--form 'file=@"/Users/rustumfortune/Documents/Syke/Developer/Integrations_WIGGIN/WIGGIN/img/trademark/wiggin31.jpeg"' \
+--form 'dmsversion="1"'
+
+var form = new FormData();
+form.append("filename", "wiggin_test178");
+form.append("dmsparentfolderid", "95243");
+form.append("dmsdatabasename", "CMIS_20");
+form.append("dmsdocid", "7");
+form.append("file", fileInput.files[0], "wiggin178.jpeg");
+form.append("dmsversion", "1");
+
+var settings = {
+  "url": "https://connect.syke.tech/syke/api/1/files/content?parentfolderid=95243",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx",
+    "Cookie": "ROUTEID=.app4b68"
+  },
+  "processData": false,
+  "mimeType": "multipart/form-data",
+  "contentType": false,
+  "data": form
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+###
+POST https://connect.syke.tech/syke/api/1/files/content?parentfolderid=95243 HTTP/1.1
+Host: connect.syke.tech
+Authorization: Bearer rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx
+Cookie: ROUTEID=.app4b68
+Content-Length: 666
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="filename"
+
+wiggin_test178
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="dmsparentfolderid"
+
+95243
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="dmsdatabasename"
+
+CMIS_20
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="dmsdocid"
+
+1
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="/Users/rustumfortune/Documents/Syke/Developer/Integrations_WIGGIN/WIGGIN/img/trademark/wiggin1243.jpeg"
+Content-Type: image/jpeg
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="dmsversion"
+
+1
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+
+              "attachments": {
+                "attachment": [
+                  {
+                    "file": "string",
+                    "name": "string",
+                    "order": "string",
+                    "id": 0,
+                    "extension": "string",
+                    "parentfolderid": 0,
+                    "filehttplink": "string",
+                    "folderpath": "string",
+                    "folderhttplink": "string",
+                    "filesize": 0,
+                    "redactionStatus": true,
+                    "siteid": 0,
+                    "displayname": "string"
+                  }
+                ]
+              },

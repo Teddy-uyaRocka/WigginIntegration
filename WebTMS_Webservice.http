@@ -1,0 +1,1032 @@
+// note:- https://blog.bitsrc.io/vs-codes-rest-client-plugin-is-all-you-need-to-make-api-calls-e9e95fcfd85a
+// note:- https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+###
+POST https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx HTTP/1.1
+Host: www.tmsoftwaresolutions.com
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <RecordExport xmlns="http://tempuri.org/">
+      <username>Syke.Integration</username>
+      <password>Syke2022!W3bTmS</password>
+      <modulecode>2</modulecode>
+      <clientid>5118145</clientid>
+      <pics>1</pics>
+    </RecordExport>
+  </soap12:Body>
+</soap12:Envelope>
+
+//      <client>*SAGE GLOBAL SERVICES*</client>
+//      <tm_regnumber>UK00001360113</tm_regnumber>
+//      <clientid>5118145</clientid>
+//      <tm_trademark>PROTECTOR SAFETY AND DESIGN (STYLIZED PS HEART)</tm_trademark>
+
+
+###
+// note:- run the link below once an application has been setup in HighQ instance and pass the "client_id" from application
+// note: 	Setup application in HighQ
+//			1. Go to System Admin in HighQ
+//			2. Go to API Application Registration
+//			3. Click on "Add Applcation"
+//			4. Enter "Application Name" and "Display Name"
+//			5. Save
+// note:-	This will generate a ClientID; Use Client ID in below request
+//			This will return a code on the response, which will be used in API requests to HighQ
+https://connect.syke.tech/syke/authorize.action?response_type=code&client_id=124&redirect_uri=http://www.highq.com/
+
+###
+POST https://connect.syke.tech/syke/api/1/files/content?parentfolderid=95243
+Host: connect.syke.tech
+Authorization: Bearer: rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx
+Content-Length: 17553
+Content-Type: multipart/form-data; boundary=rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx
+Cookie: "ROUTEID=.app4b68"
+
+--rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx
+Content-Disposition: form-data; name="entry"
+Content-Type: application/json; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+{ 
+	"values" : 
+		{ 
+      "filename" : "Wiggin Test", 
+      "dmsparentfolderid" : "95243", 
+      "dmsdatabasename" : "CMIS_20", 
+      "dmsdocid" : "3",
+      "file" : "file:///Users/rustumfortune/Documents/Syke/Developer/Integrations_WIGGIN/WIGGIN/img/trademark/wiggin1252.jpeg",
+      "dmsversion" : "1"
+		} 
+}
+
+###
+curl --location --request POST 'https://connect.syke.tech/syke/api/1/files/content?parentfolderid=95243' \
+--header 'Authorization: Bearer rYzClHnvUZQ_BLwl3_lM9wuMumGKx2sx' \
+--header 'Cookie: ROUTEID=.app4b68' \
+--form 'filename="wiggin_test2"' \
+--form 'dmsparentfolderid="95243"' \
+--form 'dmsdatabasename="CMIS_20"' \
+--form 'dmsdocid="6"' \
+--form 'file=@"/Users/rustumfortune/Documents/Syke/Developer/Integrations_WIGGIN/WIGGIN/img/trademark/wiggin31.jpeg"' \
+--form 'dmsversion="1"'
+
+###
+// note:- run the POST below to get the "code" parameter to get "Authorization: Bearer" header value
+// note: 	Setup application in HighQ
+POST https://connect.syke.tech/syke/api/oauth2/token HTTP/1.1
+Host: connect.syke.tech
+Content-Type: application/x-www-form-urlencoded
+Body: grant_type=authorization_code&client_id=124&client_secret=ueMZIx8mHD3mwuq8kbPNnm65lzHl49mK&code=mOxFdPj9gG
+
+###
+// note:- run the POST below to get list of iSheets in Site ID
+GET https://connect.syke.tech/syke/api/1/isheets?siteid=565 HTTP/1.1
+//Host: connect.syke.tech
+//Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+accept: application/json
+
+###
+// note:- this is the Cribl test site that was setup for Cribl Site in Syke HighQ instance
+//        this lists all the iSheet Columns
+// note:- the Cribl site ID is 545
+// note:- the Cribl iSheet ID is 1197
+GET https://connect.syke.tech/syke/api/1/isheets/1216/columns HTTP/1.1
+//Host: connect.syke.tech
+//Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+accept: application/json
+
+###
+// note:- this is the Cribl test site that was setup for Cribl Site in Syke HighQ instance
+//        this lists site details
+// note:- the Cribl site ID is 545
+// note:- the Cribl iSheet ID is 1197
+GET https://connect.syke.tech/syke/api/13/sites/565 HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+accept: application/json
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// MATTER NAME
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Matter Name",
+        "sequence": "0"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "0",
+            "rawData": {
+              "text": [
+                "Cribl Matter 1"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 0
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// SUBMITTED BY
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: NHXIjKcCTEPaUoDjYldwlMuobXnpOK5M
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Wiggins Test Integrations",
+    "sheetName": "Wiggins Fields",
+    "siteid": "565",
+    "sheetid": "1216"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Trademark",
+        "sequence": "0"
+      },
+      {
+        "columnValue": "Country",
+        "sequence": "1"
+      },
+      {
+        "columnValue": "Application No",
+        "sequence": "2"
+      },
+      {
+        "columnValue": "Application Date",
+        "sequence": "3"
+      },
+      {
+        "columnValue": "Registration No",
+        "sequence": "4"
+      },
+      {
+        "columnValue": "Registration Date",
+        "sequence": "5"
+      },
+      {
+        "columnValue": "Trademark Status",
+        "sequence": "6"
+      },
+      {
+        "columnValue": "Owner",
+        "sequence": "7"
+      },
+      {
+        "columnValue": "Client",
+        "sequence": "8"
+      },
+      {
+        "columnValue": "Agent",
+        "sequence": "9"
+      },
+      {
+        "columnValue": "Classes",
+        "sequence": "10"
+      },
+      {
+        "columnValue": "Actions",
+        "sequence": "11"
+      },
+      {
+        "columnValue": "TradeMark URL",
+        "sequence": "12"
+      },
+      {
+        "columnValue": "TradeMark File",
+        "sequence": "13"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "2",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "0",
+            "rawData": {
+              "text": [
+                "Wiggin LLP"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 0
+          },
+
+          {
+            "sequence": "1",
+            "rawData": {
+              "text": [
+                "South Africa"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 1
+          },
+
+          {
+            "sequence": "2",
+            "rawData": {
+              "text": [
+                "1001"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 2
+          },
+
+          {
+            "sequence": "3",
+            "rawData": {
+              "text": [
+                "2022-01-02 23:59:59"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 3
+          },
+
+          {
+            "sequence": "4",
+            "rawData": {
+              "text": [
+                "1001"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 4
+          },
+
+          {
+            "sequence": "5",
+            "rawData": {
+              "text": [
+                "2022-01-02 23:59:59"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 5
+          },
+
+          {
+            "sequence": "6",
+            "rawData": {
+              "text": [
+                "Completed"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 6
+          },
+
+          {
+            "sequence": "7",
+            "rawData": {
+              "text": [
+                "Wiggin"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 7
+          },
+
+          {
+            "sequence": "8",
+            "rawData": {
+              "text": [
+                "Syke"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 8
+          },
+
+          {
+            "sequence": "9",
+            "rawData": {
+              "text": [
+                "Wiggin"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 9
+          },
+
+          {
+            "sequence": "10",
+            "rawData": {
+              "text": [
+                "1,2,3,4,5"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 10
+          },
+
+          {
+            "sequence": "11",
+            "rawData": {
+              "text": [
+                "Renewal Pending"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 11
+          },
+
+                    {
+            "sequence": "12",
+            "rawData": {
+              "text": [
+                "http://file.png"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 12
+          },
+
+          {
+            "sequence": "13",
+            "rawData": {
+              "text": [
+                "file:///Users/rustumfortune/Desktop/Syke.png"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 13
+          }
+
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// COUNTER PARTY NAME
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Counterparty Name",
+        "sequence": "2"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "2",
+            "rawData": {
+              "text": [
+                "Rustum Fortune"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 2
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// PARTNER
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Partner",
+        "sequence": "3"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "3",
+            "rawData": {
+              "text": [
+                "Syke"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 3
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// CONTRACT VALUE
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Contract Value",
+        "sequence": "4"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "4",
+            "rawData": {
+              "text": [
+                "1000"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 4
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// END DATE
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "End Date",
+        "sequence": "5"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "5",
+            "rawData": {
+              "text": [
+                "20/05/2022"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 5
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// STATUS
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Status",
+        "sequence": "6"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "6",
+            "rawData": {
+              "text": [
+                "Closed"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 6
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// FILES
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Files",
+        "sequence": "7"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "7",
+            "rawData": {
+              "text": [
+                ".../contract.pdf"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 7
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// PUBLICLY ALLOWED
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Publicity Allowed",
+        "sequence": "8"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "8",
+            "rawData": {
+              "text": [
+                "No"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 8
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// STATUS 2
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: Qxn3szRD6kpzDuquW9_18XNdbtZ5IKjm
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Status 2",
+        "sequence": "9"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "9",
+            "rawData": {
+              "text": [
+                "Pending"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 9
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: pFg4obNePTsc0EPTwgRr2aKbPlgQEL_/
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Document",
+        "sequence": "10"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "10",
+            "rawData": {
+              "text": [
+                "Pending"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 10
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}
+
+###
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// AGREEMENT DATE
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+POST https://connect.syke.tech/syke/api/1/isheet/item/create HTTP/1.1
+//Host: connect.syke.tech
+Authorization: Bearer: pFg4obNePTsc0EPTwgRr2aKbPlgQEL_/
+Content-Type: application/json
+
+{
+  "metaData": {
+    "siteName": "Cribl Test site- Integrations",
+    "sheetName": "Salesforce",
+    "siteid": "545",
+    "sheetid": "1197"
+  },
+  "head": {
+    "headColumn": [
+      {
+        "columnValue": "Agreement Date",
+        "sequence": "11"
+      }
+    ]
+  },
+  "data": {
+    "item": [
+      {
+        "externalID": "0",
+        "itemID": "0",
+        "column": [
+          {
+            "sequence": "11",
+            "rawData": {
+              "text": [
+                "31/05/2022"
+              ],
+              "linkDisplayName": "",
+              "linkDisplayURL": ""
+            },
+            "title": "",
+            "type": "",
+            "mendatory": true,
+            "columnID": 11
+          }
+        ]
+      }
+    ]
+  },
+  "name": "",
+  "id": 0,
+  "type": "",
+  "templateID": 0
+}

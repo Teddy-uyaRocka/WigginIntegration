@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiggin WebTMS Integration</title>
+    
+    <!-- import the methods for XML to JSON conversion functionality -->
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script type='text/javascript' src="xml2json.js"></script>
+
+    <!-- import the methods for XLS/iSheet functionality -->
+    <script src="iSheet/excellentexport.js"></script>
+
+    <!-- Formats for XLS/iSheet functionality -->
+    <script>
+        function Create_iSheet(format) {
+            return ExcellentExport.convert({
+                anchor: 'anchorNewApi-' + format,
+                filename: 'iSheet_Data',
+                format: format
+            }, [{
+                name: 'iSheet_HighQ',
+                from: {
+                    table: 'APIresult'
+                }
+            }]);
+        }
+
+        function exportSome() {
+            return ExcellentExport.convert({
+                anchor: "anchorNewApi-xlsx-some",
+                filename: "somedata",
+                format: "xlsx"
+            }, [{
+                name: 'Sheet number 1',
+                from: {
+                    table: 'APIresult'
+                },
+                filterRowFn: function(row) {
+                    if (row[1] == 200) {
+                        return false;
+                    }
+                    return true;
+                },
+                removeColumns: [1],
+
+            }])
+        }
+    </script>
+
+    <!-- conversion of xml to json functionality -->
+    <script type='text/javascript'>
+
+            var x2js = new X2JS();
+            function convertXml2JSon() {
+                $("#jsonArea").val(JSON.stringify(x2js.xml_str2json($("#xmlArea").val())));
+            };
+        
+            function convertJSon2XML() {
+                $("#xmlArea").val(x2js.json2xml_str($.parseJSON($("#jsonArea").val())));
+            };
+
+        </script>
+
+<style>
+    table {
+        border-collapse:separate;
+        border-spacing:0px;
+    }
+    td, th {
+    border: 1px solid black;
+    padding: 10px;
+    }
+    td{
+    background: white;
+    color: black;
+    font-size: smaller;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .primary{
+    background-color: brown;
+    position: sticky;
+    }
+    th {
+    background: #abd0f6;
+    color: black;
+    border-radius: 0;
+    top: 0;
+    padding: 10px;
+    font-size: smaller;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    tbody > tr:hover {
+    background-color: white;
+    }
+</style>
+
+<style type="text/css">
+    body
+    {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+    table
+    {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+    }
+    table th
+    {
+        background-color: #F7F7F7;
+        color: #333;
+        font-weight: bold;
+    }
+    table th, table td
+    {
+        padding: 5px;
+        border-color: #ccc;
+    }
+</style>
+
+</head>
+<body>
+    
+    <p id="sampleResult">Wiggin WEBTMS Integration</p>
+
+    <form name="Demo" action="" method="post">
+
+        <div>
+            <input type="button" value="Get Soap Response" onclick="GetSoapResponse();" />
+            <!-- 
+            <a download="iSheet_Data.xlsx" href="#" id="anchorNewApi-xlsx" onclick="Create_iSheet('xlsx');">Create iSheet Input</a>
+            -->
+            <a download="iSheet_Data.xlsx" href="#" id="anchorNewApi-xlsx" onclick=""><input type="button" value="Create iSheet Input" onclick="Create_iSheet('xlsx');" /></a>
+        </div>
+        <hr />
+    </form>
+
+    <div id='content'>
+        <Table id = 'APIresult' cellpadding='10px' style='text-align: left;'>
+            <thead>
+                <tr>
+                    <th>Word mark</th>
+                    <th>Logo, if applicable</th>
+                    <th>Owner name/details</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Application No.</th>
+                    <th>Application Date</th>
+                    <th>Registration No.</th>
+                    <th>Registration Date</th>
+                    <th>Next deadline / renewal date</th>
+                    <th>Agent name</th>
+                    <th>Client ID</th>
+                    <th>Client Name</th>
+                    <th style="width: 500px;">Classes</th>
+                    <th>Business Group</th>
+                    <th>Logo Image, if applicable</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </Table>
+    </div>
+
+    <script type="text/javascript">
+
+    function GetSoapResponse() {
+
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx', true);
+
+            // build SOAP request
+            let sr =
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<soap12:Envelope ' + 
+                    'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                    'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+                    'xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
+                    '<soap12:Body>' +
+
+                        '<RecordExport xmlns="http://tempuri.org/">' +
+
+                            '<username>Syke.Integration</username>' +
+                            '<password>Syke2022!W3bTmS</password>' +
+                            '<modulecode>2</modulecode>' +
+                            '<clientid>5118145</clientid>' +
+                            '<pics>0</pics>' +
+
+                        '</RecordExport>' +
+
+                    '</soap12:Body>' +
+                '</soap12:Envelope>';                
+
+            xmlhttp.onreadystatechange = function () {
+
+                if (xmlhttp.readyState == 4) {
+
+                    if (xmlhttp.status == 200) {
+
+                        // hide the element; unhide to debug
+                        document.getElementById("sampleResult").style.display = "none";
+
+                        document.getElementById("sampleResult").innerHTML = xmlhttp.responseText;
+
+                        // load the results from the request
+                        LoadSoapResponse(document.getElementById('sampleResult').textContent);
+
+                    }
+                }
+            };
+
+            // Send the POST request 
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+            // send request
+            // ...
+
+    };
+
+    function LoadSoapResponse(theResponse) {
+
+            let xmlContent = '';
+
+            let tableresult = document.getElementById('APIresult')
+
+            xml=theResponse;
+
+            //fetch('wiggin.xml').then( (response) => {
+            //fetch('soapResponse.html').then( (response) => {
+            //fetch(theResponse).then( (response) => {
+
+                //response.text().then( (xml) => {
+
+                    xmlContent = xml;
+                    $("#jsonArea").val(JSON.stringify(x2js.xml_str2json( xmlContent  )));
+
+                    const obj = JSON.parse($("#jsonArea").val());
+                    //alert(obj["DOC"]["mark"]["trademarkid"]);
+                    //https://www.tutorialrepublic.com/javascript-tutorial/javascript-json-parsing.php
+
+                    let parser = new DOMParser();
+                    let xmlDOM = parser.parseFromString(xmlContent, "application/xml");
+                    
+                    //this defines the break of each row in the SOAP response
+                    let WigginData = xmlDOM.querySelectorAll('mark')
+
+                    //loo through the results if each note and do something
+                    WigginData.forEach(WigginDataXmlNode => {
+
+                        let row = document.createElement('tr')
+
+                        xmlContent_1 = xml;
+                        let parser_1 = new DOMParser();
+                        let xmlDOM_1 = parser_1.parseFromString(xmlContent_1, "text/xml");
+
+                        // trademark
+                        let WigginData_trademark = obj["DOC"]["mark"]["trademarkid"]
+                        WigginData_trademark.forEach(WigginDataXmlNode_trademark => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_trademark.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // logo file name
+                        let WigginData_tmlogo = xmlDOM_1.querySelectorAll('tmlogo')
+                        if (WigginData_tmlogo.length != 0) {
+                            WigginData_tmlogo.forEach(WigginDataXmlNode_tmlogo => {
+                                let td = document.createElement('td')
+                                td.innerText = WigginDataXmlNode_tmlogo.innerHTML;
+                                row.appendChild(td);
+                                APIresult.children[1].appendChild(row);
+                            } );
+                        } else {
+                                let td = document.createElement('td')
+                                td.innerText = 'none';
+                                row.appendChild(td);
+                                APIresult.children[1].appendChild(row);
+                        };
+
+                        // owner name
+                        let WigginData_owner = xmlDOM_1.querySelectorAll('owner')
+                        WigginData_owner.forEach(WigginDataXmlNode_owner => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_owner.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // owner country
+                        let WigginData_ownercountry = xmlDOM_1.querySelectorAll('country')
+                        WigginData_ownercountry.forEach(WigginDataXmlNode_ownercountry => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_ownercountry.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // trademark staus
+                        let WigginData_trademarkstatus = xmlDOM_1.querySelectorAll('trademarkstatus')
+                        WigginData_trademarkstatus.forEach(WigginDataXmlNode_trademarkstatus => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_trademarkstatus.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // application number
+                        let WigginData_applicationno = xmlDOM_1.querySelectorAll('applicationno')
+                        WigginData_applicationno.forEach(WigginDataXmlNode_applicationno => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_applicationno.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // application date
+                        let WigginData_applicationdate = xmlDOM_1.querySelectorAll('applicationdate')
+                        WigginData_applicationdate.forEach(WigginDataXmlNode_applicationdate => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_applicationdate.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // registration number
+                        let WigginData_registrationno = xmlDOM_1.querySelectorAll('registrationno')
+                        if (WigginData_registrationno.length != 0) {
+
+                            WigginData_registrationno.forEach(WigginDataXmlNode_registrationno => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_registrationno.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+
+                            } );
+
+                        } else {
+
+                            let td = document.createElement('td')
+                            td.innerText = 'none';
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+
+                        };
+
+
+                        // registration date
+                        let WigginData_registrationdate = xmlDOM_1.querySelectorAll('registrationdate')
+
+                        if (WigginData_registrationdate.length != 0) {
+
+                            WigginData_registrationdate.forEach(WigginDataXmlNode_registrationdate => {
+
+                                let td = document.createElement('td')
+                                td.innerText = WigginDataXmlNode_registrationdate.innerHTML;
+                                row.appendChild(td);
+                                APIresult.children[1].appendChild(row);
+
+                            } );
+
+                        } else {
+
+                            let td = document.createElement('td')
+                            td.innerText = 'none';
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+
+                        }; 
+
+
+
+                        // actions
+                        let WigginData_actions = xmlDOM_1.querySelectorAll('actions')
+                        let td_duedate = document.createElement('td')
+                        WigginData_actions.forEach(WigginDataXmlNode_actions => {
+
+                            //due date
+                            td_duedate.innerText += '\n\n' + WigginDataXmlNode_actions.childNodes[2].innerHTML + '\n' + WigginDataXmlNode_actions.childNodes[1].innerHTML;
+                            row.appendChild(td_duedate);
+                            APIresult.children[1].appendChild(row);
+
+                        } );
+
+                        // agent
+                        let WigginData_agent = xmlDOM_1.querySelectorAll('agent')
+                        WigginData_agent.forEach(WigginDataXmlNode_agent => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_agent.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // client id
+                        let WigginData_clientid = xmlDOM_1.querySelectorAll('clientid')
+                        WigginData_clientid.forEach(WigginDataXmlNode_clientid => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_clientid.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // client name
+                        let WigginData_client = xmlDOM_1.querySelectorAll('client')
+                        WigginData_client.forEach(WigginDataXmlNode_client => {
+                            let td = document.createElement('td')
+                            td.innerText = WigginDataXmlNode_client.innerHTML;
+                            row.appendChild(td);
+                            APIresult.children[1].appendChild(row);
+                        } );
+
+                        // goods
+                        let WigginData_goods = xmlDOM_1.querySelectorAll('goods')
+                        let td_goods = document.createElement('td')
+                        WigginData_goods.forEach(WigginDataXmlNode_goods => {
+                            
+                        //    alert(WigginDataXmlNode_goods.childNodes[1].innerHTML)
+
+                        // class
+                            td_goods.innerText += '\n\n' + WigginDataXmlNode_goods.childNodes[0].textContent;
+                            row.appendChild(td_goods);
+                            APIresult.children[1].appendChild(row);
+
+                        } );
+
+                        // business group id
+                        let WigginData_business_group_id = xmlDOM_1.querySelectorAll('businessgroup')
+                        let td_business_group_id = document.createElement('td')
+
+                        if (WigginData_business_group_id.length != 0) {
+
+                            WigginData_business_group_id.forEach(WigginDataXmlNode_business_group_id => {
+
+                            //due date
+                            td_business_group_id.innerText += '\n\n' + WigginDataXmlNode_business_group_id.childNodes[0].textContent;
+                            row.appendChild(td_business_group_id);
+                            APIresult.children[1].appendChild(row);
+
+                            } );
+
+                        } else {
+
+                            td_business_group_id.innerText = 'none';
+                            row.appendChild(td_business_group_id);
+                            APIresult.children[1].appendChild(row);
+
+                        };
+
+                        // logo file Data (Data URL)
+                        let WigginData_tmlogodata = xmlDOM_1.querySelectorAll('tmlogodata')
+                        if (WigginData_tmlogodata.length != 0) {
+                            WigginData_tmlogodata.forEach(WigginDataXmlNode_tmlogodata => {
+                                //let td = document.createElement('td')
+                                let image = document.createElement('img')
+                                image.src = 'data:image/jpeg;base64,' + WigginDataXmlNode_tmlogodata.innerHTML;
+                                //td.innerText = WigginDataXmlNode_tmlogodata.innerHTML;
+                                //alert(WigginDataXmlNode_tmlogodata.innerHTML);
+                                //row.appendChild(td);
+                                row.appendChild(image);
+                                APIresult.children[1].appendChild(row);
+                            } );
+                        } else {
+                                let td = document.createElement('td')
+                                td.innerText = 'none';
+                                row.appendChild(td);
+                                APIresult.children[1].appendChild(row);
+                        };
+
+                    } );
+
+                //});
+
+            //} );
+
+    };
+
+    </script>
+    
+    <div>
+        <h4>JSON:</h4>
+        <textarea id="jsonArea" cols="55" rows="15"></textarea>
+    </div>   
+
+</body>
+</html>

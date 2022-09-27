@@ -1,0 +1,42 @@
+// note:- https://blog.bitsrc.io/vs-codes-rest-client-plugin-is-all-you-need-to-make-api-calls-e9e95fcfd85a
+// note:- https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+###
+POST https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx HTTP/1.1
+Host: www.tmsoftwaresolutions.com
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <RecordExport xmlns="http://tempuri.org/">
+      <username>Syke.Integration</username>
+      <password>Syke2022!W3bTmS</password>
+      <modulecode>2</modulecode>
+      <client>*SAGE GLOBAL SERVICES*</client>
+      <pics>1</pics>
+    </RecordExport>
+  </soap12:Body>
+</soap12:Envelope>
+
+###
+POST https://www.tmsoftwaresolutions.com/TMWebServices/websvc/WigginWebTMSExportSvc.asmx HTTP/1.1
+Host: www.tmsoftwaresolutions.com
+Content-Type: application/soap+xml; charset=utf-8
+Content-Length: length
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <RecordExport xmlns="http://tempuri.org/">
+      <username>Syke.Integration</username>
+      <password>Syke2022!W3bTmS</password>
+      <modulecode>2</modulecode>
+      <clientid>5118145</clientid>
+      <pics>1</pics>
+    </RecordExport>
+  </soap12:Body>
+</soap12:Envelope>
+
+
